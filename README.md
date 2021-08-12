@@ -2,6 +2,16 @@
 
 Textode is a simple tool to create [aiogram](https://github.com/aiogram/aiogram) text bots with only one handler.
 
+## Installation
+
+via pip:
+
+`pip install git+https://github.com/Masynchin/textode.git@main`
+
+or poetry:
+
+`poetry add git+https://github.com/Masynchin/textode.git#main`
+
 ## Usage
 
 Look [here](https://guthub.com/Masynchin/textode/tree/main/examples) for usage examples.
