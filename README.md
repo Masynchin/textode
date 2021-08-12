@@ -6,11 +6,11 @@ Textode is a simple tool to create [aiogram](https://github.com/aiogram/aiogram)
 
 via pip:
 
-`pip install git+https://github.com/Masynchin/textode.git@main`
+`pip install textode`
 
 or poetry:
 
-`poetry add git+https://github.com/Masynchin/textode.git#main`
+`poetry add textode`
 
 ## Usage
 
