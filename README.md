@@ -14,7 +14,7 @@ or poetry:
 
 ## Usage
 
-Look [here](https://guthub.com/Masynchin/textode/tree/main/examples) for usage examples.
+Look [here](https://github.com/Masynchin/textode/tree/main/examples) for usage examples.
 
 **Note `NodeDict` imports**
 
