@@ -21,7 +21,7 @@ class KeyboardNode(Node):
 
     _parent: Optional["KeyboardNode"] = None
 
-    def __init__(self, title: str, text: int, buttons: List[Node]):
+    def __init__(self, title: str, text: str, buttons: List[Node]):
         self.title = title
         self.text = text
 
