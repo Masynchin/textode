@@ -1,4 +1,13 @@
-from textode import BackNode, FillerNode, KeyboardNode, TextNode, TO_MAIN
+import datetime as dt
+
+from textode import (
+    BackNode,
+    FillerNode,
+    FuncNode,
+    KeyboardNode,
+    TextNode,
+    TO_MAIN,
+)
 from textode import NodeDict
 
 
@@ -22,6 +31,11 @@ nested_keyboard = KeyboardNode(
     ],
 )
 
+time_node = FuncNode(
+    title="Current time?",
+    text_func=(lambda: dt.datetime.now().strftime("%H:%M:%S"))
+)
+
 help_node = TextNode(
     title="Help!",
     text="Some long and boring bot instruction...",
@@ -32,6 +46,7 @@ main_node = KeyboardNode(
     text="Your main keyboard!",
     buttons=[
         nested_keyboard,
+        time_node,
         help_node,
     ],
 )

@@ -1,6 +1,7 @@
 from textode.nodes import (
     BackNode,
     FillerNode,
+    FuncNode,
     KeyboardNode,
     Node,
     NodeDict,

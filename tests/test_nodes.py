@@ -1,7 +1,13 @@
 import pytest
 
 from textode.constants import TO_MAIN
-from textode.nodes import BackNode, FillerNode, KeyboardNode, TextNode
+from textode.nodes import (
+    BackNode,
+    FillerNode,
+    FuncNode,
+    KeyboardNode,
+    TextNode,
+)
 
 
 def test_text_node():
@@ -13,6 +19,22 @@ def test_text_node():
 def test_filler_node():
     node = FillerNode("both_title_and_text")
     assert node.title == node.text == "both_title_and_text"
+
+
+def test_func_node():
+    number = 0
+
+    def text_func():
+        nonlocal number
+        number += 1
+        return str(number)
+
+    node = FuncNode(title="title", text_func=text_func)
+    assert node.title == "title"
+
+    assert node.text == "1"
+    assert node.text == "2"
+    assert node.text == "3"
 
 
 def test_keyboard_node():
