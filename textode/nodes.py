@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 
 class Node:
@@ -118,7 +118,7 @@ class NodeDict:
     and search by its childs to get correct non-unique title node.
     """
 
-    _instance = {}
+    _instance: Dict[str, Node] = {}
 
     @classmethod
     def _register_node(cls, node: Node):
