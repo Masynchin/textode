@@ -14,7 +14,9 @@ or poetry:
 
 ## Usage
 
-Look [here](https://github.com/Masynchin/textode/tree/main/examples) for usage examples.
+Look [here](https://github.com/Masynchin/textode/tree/main/examples)
+for usage examples with schemas (built by [Graphviz](https://graphviz.org/)
+with [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font).
 
 **Note `NodeDict` imports**
 
