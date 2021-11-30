@@ -5,6 +5,7 @@ from textode.nodes import (
     BackNode,
     FillerNode,
     FuncNode,
+    ImageNode,
     KeyboardNode,
     TextNode,
 )
@@ -66,3 +67,13 @@ def test_back_node():
     )
 
     assert back_node.get_node_to_back() == main_keyboard
+
+
+def test_image_node():
+    image_node = ImageNode(title="title", path="image.png", caption="caption")
+    assert image_node.title == "title"
+    assert image_node.caption == "caption"
+    assert image_node.path == "image.png"
+
+    without_caption = ImageNode(title="title", path="image.png")
+    assert without_caption.caption is None

@@ -122,6 +122,22 @@ class BackNode(Node):
         return node
 
 
+class ImageNode(Node):
+    """Image node.
+
+    This node sends user an image.
+
+    If `caption` doesn't provided, you still can pass `node.caption`
+    in `message.answer_photo`."""
+
+    def __init__(self, title: str, path: str, caption: Optional[str] = None):
+        self.title = title
+        self.path = path
+        self.caption = caption
+
+        NodeDict._register_node(self)
+
+
 class NodeDict:
     """Dictionary with all nodes.
 

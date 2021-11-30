@@ -2,6 +2,7 @@ from textode.nodes import (
     BackNode,
     FillerNode,
     FuncNode,
+    ImageNode,
     KeyboardNode,
     Node,
     NodeDict,

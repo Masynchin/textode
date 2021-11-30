@@ -5,8 +5,10 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.types.message import Message
 
-from textode import BackNode, FuncNode, KeyboardNode, Node, TextNode
-from simple_node import NodeDict
+from textode import BackNode, FuncNode, KeyboardNode, ImageNode, Node, TextNode
+
+# from simple_node import NodeDict
+from image_node import NodeDict
 
 
 bot = Bot(token=os.getenv("TOKEN"))
@@ -29,6 +31,9 @@ async def handle_text(message: Message):
     elif isinstance(node, BackNode):
         keyboard = make_keyboard(node.get_node_to_back().buttons)
         await message.answer(node.text, reply_markup=keyboard)
+    elif isinstance(node, ImageNode):
+        with open(node.path, mode="rb") as image:
+            await message.answer_photo(image, caption=node.caption)
 
 
 def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
