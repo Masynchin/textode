@@ -4,7 +4,7 @@ from typing import Callable, Dict, List, Optional
 class Node:
     """Base class of all nodes.
 
-    All subclass must have this two attributes:
+    All subclasses must have this two attributes:
     - `title`: title that will appear at keyboard.
     - `text`: text that will be send after clicking at keyboard button.
     """
@@ -16,7 +16,7 @@ class Node:
 class KeyboardNode(Node):
     """Keyboard node.
 
-    This node is created for sending keyboard with it own buttons nodes.
+    This node is created for sending keyboard with its own buttons nodes.
     """
 
     _parent: Optional["KeyboardNode"] = None
@@ -36,7 +36,7 @@ class KeyboardNode(Node):
     def _add_childs_buttons_parent(self):
         """Set parent to childs buttons.
 
-        This required by BackNode to be able get any level height parent.
+        This required by BackNode to be able to get any level height parent.
         """
         for child in self.buttons:
             child._parent = self
@@ -56,8 +56,7 @@ class KeyboardNode(Node):
 class TextNode(Node):
     """Text node.
 
-    This node contain text that must sended to user after clicking
-    on keyboard button.
+    Default node that contains text that will be sent to the user.
     """
 
     def __init__(self, title: str, text: str):
@@ -129,9 +128,10 @@ class NodeDict:
     NodeDict must be used by message handler to get current node
     based on user message text.
 
-    Nodes contained as dict pair, where key is title and value is node itself.
+    Nodes are contained as dict pair, where key is title
+    and value is node itself.
 
-    !! Because of way how nodes contained, all nodes must have unique title.
+    !! Because of the way how nodes contained, all nodes must have unique title.
     Otherwise, you can use FSM and store current KeyboardNode as parent
     and search by its childs to get correct non-unique title node.
     """

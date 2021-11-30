@@ -23,7 +23,7 @@ nested_node = KeyboardNode(
 )
 
 nested_keyboard = KeyboardNode(
-    title="Some interesting goes here...",
+    title="Something interesting goes here...",
     text="Wanna see some nested code?",
     buttons=[
         nested_node,

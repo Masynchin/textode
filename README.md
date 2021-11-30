@@ -20,4 +20,4 @@ with [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font).
 
 **Note `NodeDict` imports**
 
-If `my_node.py` contains your node, you must import `NodeDict` in this file, and then import `NodeDict` from `my_node.py` to file with bot. If your node and your bot are placed in one file, you just need to use `from textode import NodeDict`.
+If `my_node.py` contains your node, you must import `NodeDict` in this file, and then import `NodeDict` from `my_node.py` to file with bot. If your node and your bot are placed in one file, you only need to use `from textode import NodeDict`.

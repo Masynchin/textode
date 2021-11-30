@@ -11,14 +11,14 @@
 <!-- main_keyboard -->
 <g id="node1" class="node">
 <title>main_keyboard</title>
-<polygon fill="none" stroke="black" points="159,-367.15 159,-469.15 873,-469.15 873,-367.15 159,-367.15"/>
-<text text-anchor="middle" x="516" y="-439.95" font-family="jetbrains mono" font-size="14.00">Your main keyboard!</text>
-<polyline fill="none" stroke="black" points="159,-418.15 873,-418.15 "/>
-<text text-anchor="middle" x="333" y="-388.95" font-family="jetbrains mono" font-size="14.00">Some interesting goes here...</text>
-<polyline fill="none" stroke="black" points="507,-367.15 507,-418.15 "/>
-<text text-anchor="middle" x="615" y="-388.95" font-family="jetbrains mono" font-size="14.00">Current time?</text>
-<polyline fill="none" stroke="black" points="723,-367.15 723,-418.15 "/>
-<text text-anchor="middle" x="798" y="-388.95" font-family="jetbrains mono" font-size="14.00">Help!</text>
+<polygon fill="none" stroke="black" points="117.5,-367.15 117.5,-469.15 872.5,-469.15 872.5,-367.15 117.5,-367.15"/>
+<text text-anchor="middle" x="495" y="-439.95" font-family="jetbrains mono" font-size="14.00">Your main keyboard!</text>
+<polyline fill="none" stroke="black" points="117.5,-418.15 872.5,-418.15 "/>
+<text text-anchor="middle" x="312" y="-388.95" font-family="jetbrains mono" font-size="14.00">Something interesting goes here...</text>
+<polyline fill="none" stroke="black" points="506.5,-367.15 506.5,-418.15 "/>
+<text text-anchor="middle" x="614.5" y="-388.95" font-family="jetbrains mono" font-size="14.00">Current time?</text>
+<polyline fill="none" stroke="black" points="722.5,-367.15 722.5,-418.15 "/>
+<text text-anchor="middle" x="797.5" y="-388.95" font-family="jetbrains mono" font-size="14.00">Help!</text>
 </g>
 <!-- {current_time} -->
 <g id="node2" class="node">
@@ -57,8 +57,8 @@
 <!-- main_keyboard&#45;&gt;nested_keyboard -->
 <g id="edge3" class="edge">
 <title>main_keyboard&#45;&gt;nested_keyboard</title>
-<path fill="none" stroke="black" d="M444.04,-367.11C429.62,-357.08 414.37,-346.48 399.67,-336.26"/>
-<polygon fill="black" stroke="black" points="401.3,-333.13 391.09,-330.29 397.3,-338.87 401.3,-333.13"/>
+<path fill="none" stroke="black" d="M430.46,-366.92C417.71,-356.99 404.24,-346.51 391.25,-336.4"/>
+<polygon fill="black" stroke="black" points="393.28,-333.54 383.23,-330.15 388.98,-339.06 393.28,-333.54"/>
 </g>
 <!-- Your choice, not mine -->
 <g id="node5" class="node">
@@ -87,8 +87,8 @@
 <!-- Your choice, not mine&#45;&gt;main_keyboard -->
 <g id="edge5" class="edge">
 <title>Your choice, not mine&#45;&gt;main_keyboard:main</title>
-<path fill="none" stroke="black" d="M132.33,-191.74C110.49,-257.15 60.95,-431.32 147.94,-443.48"/>
-<polygon fill="black" stroke="black" points="147.79,-446.98 158,-444.15 148.26,-440 147.79,-446.98"/>
+<path fill="none" stroke="black" d="M128.58,-191.74C96.77,-257.15 20.69,-431.32 106.02,-443.48"/>
+<polygon fill="black" stroke="black" points="105.79,-446.97 116,-444.15 106.26,-439.99 105.79,-446.97"/>
 </g>
 <!-- nested -->
 <g id="node7" class="node">
