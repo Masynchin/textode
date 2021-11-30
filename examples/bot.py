@@ -8,7 +8,7 @@ from aiogram.types.message import Message
 from textode import BackNode, FuncNode, KeyboardNode, ImageNode, Node, TextNode
 
 # from simple_node import NodeDict
-from image_node import NodeDict
+# from image_node import NodeDict
 
 
 bot = Bot(token=os.getenv("TOKEN"))
