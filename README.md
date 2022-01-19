@@ -1,6 +1,7 @@
 # textode
 
-Textode is a simple tool to create [aiogram](https://github.com/aiogram/aiogram) text bots with only one handler.
+Textode is a simple tool to create text bots with only one handler.
+You can use it for Telegram, VK or any other social network.
 
 ## Installation
 
@@ -15,7 +16,7 @@ or poetry:
 ## Usage
 
 Look [here](https://github.com/Masynchin/textode/tree/main/examples)
-for usage examples with schemas (built by [Graphviz](https://graphviz.org/)
+for usage examples ([aiogram](https://github.com/aiogram/aiogram) and [vkbottle](https://github.com/vkbottle/vkbottle) are presented) with schemas (built by [Graphviz](https://graphviz.org/)
 with [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font).
 
 **Note `NodeDict` imports**
