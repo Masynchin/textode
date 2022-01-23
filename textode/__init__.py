@@ -4,6 +4,7 @@ from textode.nodes import (
     FuncNode,
     ImageNode,
     KeyboardNode,
+    MultiNode,
     Node,
     NodeDict,
     TextNode,

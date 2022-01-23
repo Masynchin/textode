@@ -7,6 +7,7 @@ from textode.nodes import (
     FuncNode,
     ImageNode,
     KeyboardNode,
+    MultiNode,
     TextNode,
 )
 
@@ -77,3 +78,11 @@ def test_image_node():
 
     without_caption = ImageNode(title="title", path="image.png")
     assert without_caption.caption is None
+
+
+def test_multi_node():
+    title = "title"
+    children = [FillerNode(title), TextNode(title=title, text="text")]
+    multi_node = MultiNode(title=title, nodes=children)
+    assert multi_node.title == title
+    assert multi_node.nodes == children

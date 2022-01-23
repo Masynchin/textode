@@ -138,6 +138,22 @@ class ImageNode(Node):
         NodeDict._register_node(self)
 
 
+class MultiNode(Node):
+    """Multi node.
+
+    This node represents multiple nodes thats need to be send at one time.
+
+    Note that all children nodes must have the same title as
+    its multinode parent.
+    """
+
+    def __init__(self, title: str, nodes: List[Node]):
+        self.title = title
+        self.nodes = nodes
+
+        NodeDict._register_node(self)
+
+
 class NodeDict:
     """Dictionary with all nodes.
 

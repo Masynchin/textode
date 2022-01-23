@@ -3,10 +3,19 @@ from typing import List
 
 from vkbottle import Keyboard, Text, PhotoMessageUploader
 from vkbottle.bot import Bot, Message
-from textode import BackNode, FuncNode, KeyboardNode, ImageNode, Node, TextNode
+from textode import (
+    BackNode,
+    FuncNode,
+    KeyboardNode,
+    ImageNode,
+    MultiNode,
+    Node,
+    TextNode,
+)
 
 # from simple_node import NodeDict
 # from image_node import NodeDict
+# from multi_node import NodeDict
 
 
 bot = Bot(os.getenv("VK_TOKEN"))
@@ -18,9 +27,15 @@ async def handler(message: Message):
     node = NodeDict.get_node(message.text)
     if node is None:
         await message.answer("Couldn't recognize message text")
-        return
+    else:
+        await handle_node(node, message)
 
-    if isinstance(node, (FuncNode, TextNode)):
+
+async def handle_node(node: Node, message: Message):
+    if isinstance(node, MultiNode):
+        for node in node.nodes:
+            await handle_node(node, message)
+    elif isinstance(node, (FuncNode, TextNode)):
         await message.answer(node.text)
     elif isinstance(node, KeyboardNode):
         keyboard = make_keyboard(node.buttons)
