@@ -20,13 +20,13 @@ from textode import (
 # from multi_node import NodeDict
 
 
-bot = Bot(token=os.getenv("TOKEN"))
+bot = Bot(token=os.getenv("TG_TOKEN"))
 dp = Dispatcher(bot=bot)
 
 
-@dp.message_handler(lambda _: True)
-async def handle_text(message: Message):
-    """Handler of all text messages."""
+@dp.message_handler()
+async def handle_message(message: Message):
+    """Handler of all messages."""
     node = NodeDict.get_node(message.text)
     if node is None:
         await message.answer("Couldn't recognize message text")
@@ -35,6 +35,7 @@ async def handle_text(message: Message):
 
 
 async def handle_node(node: Node, message: Message):
+    """Answer to message depends on node's type."""
     if isinstance(node, MultiNode):
         for node in node.nodes:
             await handle_node(node, message)
@@ -52,7 +53,7 @@ async def handle_node(node: Node, message: Message):
 
 
 def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
-    """Create keyboard from KeyboardNode's buttons"""
+    """Create keyboard from KeyboardNode's buttons."""
     return ReplyKeyboardMarkup(
         [[KeyboardButton(text=node.title)] for node in node_buttons],
         resize_keyboard=True,

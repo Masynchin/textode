@@ -23,7 +23,8 @@ image_uploader = PhotoMessageUploader(bot.api)
 
 
 @bot.on.message()
-async def handler(message: Message):
+async def handle_message(message: Message):
+    """Handler of all messages."""
     node = NodeDict.get_node(message.text)
     if node is None:
         await message.answer("Couldn't recognize message text")
@@ -32,6 +33,7 @@ async def handler(message: Message):
 
 
 async def handle_node(node: Node, message: Message):
+    """Answer to message depends on node's type."""
     if isinstance(node, MultiNode):
         for node in node.nodes:
             await handle_node(node, message)
@@ -49,14 +51,15 @@ async def handle_node(node: Node, message: Message):
         await message.answer(node.caption, attachment=attachment)
 
 
-def make_keyboard(buttons: List[Node]) -> str:
-    """Create keyboard from KeyboardNode's buttons"""
+def make_keyboard(node_buttons: List[Node]) -> str:
+    """Create keyboard from KeyboardNode's buttons."""
     keyboard = Keyboard(inline=False)
-    for button in buttons:
+    for node in node_buttons:
         keyboard.row()
-        keyboard.add(Text(button.title))
+        keyboard.add(Text(node.title))
 
     return keyboard.get_json()
 
 
-bot.run_forever()
+if __name__ == "__main__":
+    bot.run_forever()
