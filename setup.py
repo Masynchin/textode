@@ -12,7 +12,7 @@ def get_long_description() -> str:
 
 setup(
     name="textode",
-    version="1.3.0",
+    version="1.3.1",
     description="Make your text-bot with only one handler.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
