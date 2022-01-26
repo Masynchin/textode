@@ -29,11 +29,11 @@ class KeyboardNode(Node):
             raise ValueError("KeyboardNode must contain at least one button")
 
         self.buttons = buttons
-        self._add_childs_buttons_parent()
+        self._set_as_parent_to_buttons()
 
         NodeDict._register_node(self)
 
-    def _add_childs_buttons_parent(self):
+    def _set_as_parent_to_buttons(self):
         """Set parent to childs buttons.
 
         This required by BackNode to be able to get any level height parent.
