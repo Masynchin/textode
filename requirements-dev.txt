@@ -8,3 +8,4 @@ flake8-comprehensions
 pep8-naming
 
 aiogram
+vkbottle
