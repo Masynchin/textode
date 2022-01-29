@@ -86,3 +86,21 @@ def test_multi_node():
     multi_node = MultiNode(title=title, nodes=children)
     assert multi_node.title == title
     assert multi_node.nodes == children
+
+
+def test_back_node_works_with_multi_node():
+    back_node = BackNode(title="back", text="back", level=TO_MAIN)
+    main_node = KeyboardNode(
+        title="title",
+        text="text",
+        buttons=[
+            MultiNode(
+                title=(_ := "transparent"),
+                nodes=[
+                    TextNode(_, text="text"),
+                    KeyboardNode(_, text="text", buttons=[back_node]),
+                ],
+            )
+        ],
+    )
+    assert back_node.get_node_to_back() == main_node

@@ -153,6 +153,17 @@ class MultiNode(Node):
 
         NodeDict._register_node(self)
 
+    @property
+    def _parent(self) -> KeyboardNode:
+        """Parent property to override its setting."""
+
+    @_parent.setter
+    def _parent(self, parent: KeyboardNode):
+        """Set provided parent for children of KeyboardNode type."""
+        for node in self.nodes:
+            if isinstance(node, KeyboardNode):
+                node._parent = parent
+
 
 class NodeDict:
     """Dictionary with all nodes.
