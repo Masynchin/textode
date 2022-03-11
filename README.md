@@ -7,7 +7,7 @@ You can use it for Telegram, VK or any other social network.
 
 Textode helps you build **static text bots**.
 
-**Static text bots** is bots that has concrete structure, like instruction
+**Static text bots** are bots that has concrete structure, like instruction
 on the pill bottle or a movie script. So, perfect examples of what you can do
 with this library is instruction bots, text quests, and so on.
 
