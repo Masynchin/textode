@@ -6,20 +6,22 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.types.message import Message
 
 from textode import (
-    BackNode,
-    FuncNode,
-    KeyboardNode,
-    ImageNode,
-    MultiNode,
+    register_nodes,
+    Back,
+    Func,
+    Keyboard,
+    Image,
+    Multi,
     Node,
-    TextNode,
+    Text,
 )
 
-# from simple_node import NodeDict
-# from image_node import NodeDict
-# from multi_node import NodeDict
+# from simple_node import main_node
+# from image_node import main_node
+# from multi_node import main_node
 
 
+nodes = register_nodes(main_node, "/start")
 bot = Bot(token=os.getenv("TG_TOKEN"))
 dp = Dispatcher(bot=bot)
 
@@ -27,7 +29,7 @@ dp = Dispatcher(bot=bot)
 @dp.message_handler()
 async def handle_message(message: Message):
     """Handler of all messages."""
-    node = NodeDict.get_node(message.text)
+    node = nodes.get(message.text)
     if node is None:
         await message.answer("Couldn't recognize message text")
     else:
@@ -36,26 +38,26 @@ async def handle_message(message: Message):
 
 async def handle_node(node: Node, message: Message):
     """Answer to message depends on node's type."""
-    if isinstance(node, MultiNode):
+    if isinstance(node, Multi):
         for node in node.nodes:
             await handle_node(node, message)
-    elif isinstance(node, (FuncNode, TextNode)):
+    elif isinstance(node, (Func, Text)):
         await message.answer(node.text)
-    elif isinstance(node, KeyboardNode):
-        keyboard = make_keyboard(node.buttons)
+    elif isinstance(node, Keyboard):
+        keyboard = make_keyboard(node.buttons.keys())
         await message.answer(node.text, reply_markup=keyboard)
-    elif isinstance(node, BackNode):
+    elif isinstance(node, Back):
         keyboard = make_keyboard(node.get_node_to_back().buttons)
         await message.answer(node.text, reply_markup=keyboard)
-    elif isinstance(node, ImageNode):
+    elif isinstance(node, Image):
         with open(node.path, mode="rb") as image:
             await message.answer_photo(image, caption=node.caption)
 
 
-def make_keyboard(node_buttons: List[Node]) -> ReplyKeyboardMarkup:
-    """Create keyboard from KeyboardNode's buttons."""
+def make_keyboard(buttons: List[str]) -> ReplyKeyboardMarkup:
+    """Create keyboard from Keyboard's buttons."""
     return ReplyKeyboardMarkup(
-        [[KeyboardButton(text=node.title)] for node in node_buttons],
+        [[KeyboardButton(text=button)] for button in buttons],
         resize_keyboard=True,
     )
 

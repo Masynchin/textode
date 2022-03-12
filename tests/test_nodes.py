@@ -1,26 +1,11 @@
 import pytest
 
 from textode.constants import TO_MAIN
-from textode.nodes import (
-    BackNode,
-    FillerNode,
-    FuncNode,
-    ImageNode,
-    KeyboardNode,
-    MultiNode,
-    TextNode,
-)
+from textode.nodes import Back, Func, Image, Keyboard, Multi, Text
 
 
 def test_text_node():
-    node = TextNode(title="title", text="text")
-    assert node.title == "title"
-    assert node.text == "text"
-
-
-def test_filler_node():
-    node = FillerNode("both_title_and_text")
-    assert node.title == node.text == "both_title_and_text"
+    assert Text("text").text == "text"
 
 
 def test_func_node():
@@ -31,8 +16,7 @@ def test_func_node():
         number += 1
         return str(number)
 
-    node = FuncNode(title="title", text_func=text_func)
-    assert node.title == "title"
+    node = Func(text_func)
 
     assert node.text == "1"
     assert node.text == "2"
@@ -41,66 +25,47 @@ def test_func_node():
 
 def test_keyboard_node():
     with pytest.raises(ValueError):
-        KeyboardNode(title="title", text="text", buttons=[])
+        Keyboard("text", buttons=[])
 
     titles = ("one", "two", "three")
-    buttons = [FillerNode(title) for title in titles]
-    node = KeyboardNode(title="title", text="text", buttons=buttons)
+    texts = ("four", "five", "six")
+    nodes = [Text(text) for text in texts]
+    buttons = dict(zip(titles, nodes))
+    node = Keyboard("text", buttons=buttons)
 
-    assert node.title == "title"
     assert node.text == "text"
     assert node.buttons == buttons
 
-    for button, title in zip(node.buttons, titles):
-        assert button.title == button.text == title
+    for button, text in zip(node.buttons.values(), texts):
+        assert button.text == text
 
 
 def test_back_node():
-    back_node = BackNode(
-        title="go back", text="returning to ...", level=TO_MAIN
-    )
-
-    nested_keyboard = KeyboardNode(
-        title="title", text="text", buttons=[back_node]
-    )
-    main_keyboard = KeyboardNode(
-        title="title", text="text", buttons=[nested_keyboard]
-    )
+    back_node = Back("returning to ...", level=TO_MAIN)
+    nested_keyboard = Keyboard("text", buttons={"go back": back_node})
+    main_keyboard = Keyboard("text", buttons={"title": nested_keyboard})
 
     assert back_node.get_node_to_back() == main_keyboard
 
 
 def test_image_node():
-    image_node = ImageNode(title="title", path="image.png", caption="caption")
-    assert image_node.title == "title"
+    image_node = Image("image.png", caption="caption")
     assert image_node.caption == "caption"
     assert image_node.path == "image.png"
 
-    without_caption = ImageNode(title="title", path="image.png")
+    without_caption = Image("image.png")
     assert without_caption.caption is None
 
 
 def test_multi_node():
-    title = "title"
-    children = [FillerNode(title), TextNode(title=title, text="text")]
-    multi_node = MultiNode(title=title, nodes=children)
-    assert multi_node.title == title
+    children = [Text("title"), Text("text")]
+    multi_node = Multi(children)
     assert multi_node.nodes == children
 
 
 def test_back_node_works_with_multi_node():
-    back_node = BackNode(title="back", text="back", level=TO_MAIN)
-    main_node = KeyboardNode(
-        title="title",
-        text="text",
-        buttons=[
-            MultiNode(
-                title=(_ := "transparent"),
-                nodes=[
-                    TextNode(_, text="text"),
-                    KeyboardNode(_, text="text", buttons=[back_node]),
-                ],
-            )
-        ],
-    )
+    back_node = Back("back", level=TO_MAIN)
+    multi_node = Multi([Keyboard("text", buttons={"back": back_node})])
+    main_node = Keyboard("text", buttons={"transparent": multi_node})
+
     assert back_node.get_node_to_back() == main_node

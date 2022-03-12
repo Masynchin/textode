@@ -1,23 +1,29 @@
 import os
 from typing import List
 
-from vkbottle import Keyboard, Text, PhotoMessageUploader
+from vkbottle import (
+    Keyboard as VkKeyboard,
+    Text as VkText,
+    PhotoMessageUploader,
+)
 from vkbottle.bot import Bot, Message
 from textode import (
-    BackNode,
-    FuncNode,
-    KeyboardNode,
-    ImageNode,
-    MultiNode,
+    register_nodes,
+    Back,
+    Func,
+    Keyboard,
+    Image,
+    Multi,
     Node,
-    TextNode,
+    Text,
 )
 
-# from simple_node import NodeDict
-# from image_node import NodeDict
-# from multi_node import NodeDict
+# from simple_node import main_node
+# from image_node import main_node
+# from multi_node import main_node
 
 
+nodes = register_nodes(main_node, "/start")
 bot = Bot(os.getenv("VK_TOKEN"))
 image_uploader = PhotoMessageUploader(bot.api)
 
@@ -25,7 +31,7 @@ image_uploader = PhotoMessageUploader(bot.api)
 @bot.on.message()
 async def handle_message(message: Message):
     """Handler of all messages."""
-    node = NodeDict.get_node(message.text)
+    node = nodes.get(message.text)
     if node is None:
         await message.answer("Couldn't recognize message text")
     else:
@@ -34,29 +40,29 @@ async def handle_message(message: Message):
 
 async def handle_node(node: Node, message: Message):
     """Answer to message depends on node's type."""
-    if isinstance(node, MultiNode):
+    if isinstance(node, Multi):
         for node in node.nodes:
             await handle_node(node, message)
-    elif isinstance(node, (FuncNode, TextNode)):
+    elif isinstance(node, (Func, Text)):
         await message.answer(node.text)
-    elif isinstance(node, KeyboardNode):
-        keyboard = make_keyboard(node.buttons)
+    elif isinstance(node, Keyboard):
+        keyboard = make_keyboard(node.buttons.keys())
         await message.answer(node.text, keyboard=keyboard)
-    elif isinstance(node, BackNode):
+    elif isinstance(node, Back):
         keyboard = make_keyboard(node.get_node_to_back().buttons)
         await message.answer(node.text, keyboard=keyboard)
-    elif isinstance(node, ImageNode):
+    elif isinstance(node, Image):
         with open(node.path, mode="rb") as f:
             attachment = await image_uploader.upload(f.read())
         await message.answer(node.caption, attachment=attachment)
 
 
-def make_keyboard(node_buttons: List[Node]) -> str:
-    """Create keyboard from KeyboardNode's buttons."""
-    keyboard = Keyboard(inline=False)
-    for node in node_buttons:
+def make_keyboard(buttons: List[str]) -> str:
+    """Create keyboard from Keyboard's buttons."""
+    keyboard = VkKeyboard(inline=False)
+    for button in buttons:
         keyboard.row()
-        keyboard.add(Text(node.title))
+        keyboard.add(VkText(button))
 
     return keyboard.get_json()
 
