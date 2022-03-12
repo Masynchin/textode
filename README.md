@@ -22,13 +22,12 @@ In textode the main part of the bot is Node. It used to build bot structure.
 
 For example, this is the basic bot in textode:
 ~~~python
-KeyboardNode(
-    title="/start",
-    text="Hello! Here is your keyboard.",
-    buttons=[
-        TextNode(title="About bot", text="*about*"),
-        ImageNode(title="Bot logo", path="logo.png"),
-    ],
+Keyboard(
+    "Hello! Here is your keyboard.",
+    buttons={
+        "About bot": Text("*about*"),
+        "Bot logo": Image("logo.png"),
+    },
 )
 ~~~
 
@@ -43,12 +42,12 @@ concrete schema. Instead of making handlers you are designing Node structure.
 Another advantage is that instead of many handlers you now have one.
 It works because of Node identity, they all have the same basic fields:
 
-- title - message text that triggers node.
+- title (by parent) - message text that triggers node.
 - text - text that sends back.
 
 Because of that, you need to make only one handler that picking right node
 (depends on user input), handles if there is no node with this text, or
-handles node type (sends keyboard for KeyboardNode, image for ImageNode etc.).
+handles node type (sends keyboard for Keyboard, image for ImageNode etc.).
 
 ## Installation
 
@@ -67,13 +66,3 @@ Look [here](examples) for usage examples
 [vkbottle](https://github.com/vkbottle/vkbottle) are presented)
 with schemas (built by [Graphviz](https://graphviz.org/)
 with [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font).
-
-## About usage
-
-**Note `NodeDict` imports**
-
-If `my_node.py` contains your node, you must import `NodeDict` in this file,
-and then import `NodeDict` from `my_node.py` to file with bot.
-
-If your node and your bot are placed in one file, you only need to use
-`from textode import NodeDict`.

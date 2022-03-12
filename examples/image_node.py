@@ -1,13 +1,11 @@
-from textode import ImageNode, KeyboardNode
-from textode import NodeDict
+from textode import Image, Keyboard
 
 
-main_node = KeyboardNode(
-    title="/start",
-    text="Choose image topic:",
-    buttons=[
-        ImageNode(title="Cats", path="examples/image.jpg", caption="Meow"),
-        ImageNode(title="Chill", path="examples/image.jpg"),
-        ImageNode(title="Yawn", path="examples/image.jpg"),
-    ],
+main_node = Keyboard(
+    "Choose image topic:",
+    buttons={
+        "Cats": Image("examples/image.jpg", caption="Meow"),
+        "Chill": Image("examples/image.jpg"),
+        "Yawn": Image("examples/image.jpg"),
+    },
 )
