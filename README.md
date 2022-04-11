@@ -1,5 +1,7 @@
 # textode
 
+[![Latest PyPI package version](https://badge.fury.io/py/textode.svg)](https://badge.fury.io/py/textode)
+
 Textode is a simple tool to create text bots with only one handler.
 You can use it for Telegram, VK or any other social network.
 
