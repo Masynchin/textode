@@ -2,30 +2,58 @@
 
 [![Latest PyPI package version](https://badge.fury.io/py/textode.svg)](https://badge.fury.io/py/textode)
 
-Textode is a simple tool to create text bots with only one handler.
-You can use it for Telegram, VK or any other social network.
+Textode is a simple tool to create stateless dialogs.
+You can use it for bulding bots, text quests, instructions and so on.
 
 ## What is it for
 
-Textode helps you build **static text bots**.
+Textode helps you build **stateless dialogs**.
 
-**Static text bots** are bots that has concrete structure, like instruction
-on the pill bottle or a movie script. So, perfect examples of what you can do
-with this library is instruction bots, text quests, and so on.
+**Stateless dialogs** are dialogs that has no state.
+Thus, it will help you build some dialog-based system
+where all possible questions and answers are known before system run.
+
+Even through it has some features to bring interractive elements
+(such as `Func` node), it doesn't designed to have any state.
 
 ## What is it not for
 
-It is not designed to build bots that use data provided by user
-(e.g. store user age).
+It is not designed to build dialogs that has state.
+It means that it can't operate with runtime-provided data
+(e.g. store user credentials).
 
 ## What is the idea
 
-In textode the main part of the bot is Node. It used to build bot structure.
+The main idea is of textode is about creating dialog scheme.
+In textode dialog is tree of questions and answers.
+Here is the basic example:
 
-For example, this is the basic bot in textode:
+~~~mermaid
+flowchart TD;
+    Main["*dialog start*"];
+    About["Text description of what this bot can do"];
+    Logo["Image of bot logo"];
+
+    Main -->|"About bot"| About;
+    Main -->|"Bot logo"| Logo;
+~~~
+
+This dialog includes this states:
+
+- Start - in response dialog shows possible options to go through.
+
+- About bot - in response dialog shows description of bot.
+  User stays in start state since there are no other possible
+  states after this state.
+
+- Bot logo - in response dialog shows picture with bot logo.
+  User also stays in start state same as with "About bot".
+
+Here is how it can be represented with textode:
+
 ~~~python
 Keyboard(
-    "Hello! Here is your keyboard.",
+    "Hello! Starts the dialog. Choose what you want to know about:",
     buttons={
         "About bot": Text("*about*"),
         "Bot logo": Image("logo.png"),
@@ -33,23 +61,17 @@ Keyboard(
 )
 ~~~
 
-With this structure bot handles "/start" message, responses with
-"Hello! Here is your keyboard." text and keyboard of two buttons -
-"About bot" that sends text about bot and "Bot logo" that sends image
-of bot logo.
+Here `Keyboard` is node with some children.
+It is named like that because in many bots it
+can be represented with keyboard.
 
-The main advantage of this approach is that your bot is now defined by
-concrete schema. Instead of making handlers you are designing Node structure.
+The main advantage of this approach is that your dialog
+is now defined by concrete schema. There is no need to write
+any extra functions to handle transitions between states.
 
-Another advantage is that instead of many handlers you now have one.
-It works because of Node identity, they all have the same basic fields:
-
-- title (by parent) - message text that triggers node.
-- text - text that sends back.
-
-Because of that, you need to make only one handler that picking right node
-(depends on user input), handles if there is no node with this text, or
-handles node type (sends keyboard for Keyboard, image for ImageNode etc.).
+You need only one handler which connects user with this dialog.
+This handler check if there is node with matching text or not.
+Then you can send response. That is how handler runs dialog.
 
 ## Installation
 
