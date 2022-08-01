@@ -90,3 +90,9 @@ Look [here](examples) for usage examples
 [vkbottle](https://github.com/vkbottle/vkbottle) are presented)
 with schemas (built by [Graphviz](https://graphviz.org/)
 with [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font).
+
+## Projects that use Textode
+
+Are you using Textode? Please consider opening a pull request to list your project here:
+
+- [PFR Instruction](https://github.com/bullbesh/pfr_instruction)
